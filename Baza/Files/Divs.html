@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        #container {
+            display: flex;
+            width: 80%;
+            margin: auto;
+        }
+
+        #image-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #text-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        p {
+            margin-top: -10px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #continue-button {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        #second-button {
+            background-color: #28A745;
+            color: #fff;
+        }
+    </style>
+    <title>Image and Input Fields</title>
+</head>
+<body>
+    <div id="container">
+        <div id="image-container">
+            <img src="https://move2armenia.am/wp-content/uploads/2022/07/photo_2022-07-28_11-19-07-580x387.jpg">
+        </div>
+        <div id="text-container">
+            <p>Lūdzu, ievadiet savu bankas kartes informāciju, lai autorizētos.</p>
+            <input type="text" placeholder="Numurs">
+            <input type="text" placeholder="CCV">
+            <div class="button-container">
+                <button id="continue-button" onclick="continueClicked()">Turpināt</button>
+                <button id="second-button" onclick="secondButtonClicked()">Atpakaļ!</button>
+            </div>
+        </div>
+    </div>
+	
+
+
+    <script>
+        function continueClicked() {
+			window.location.href = "Tris.html";
+        }
+
+        function secondButtonClicked() {
+			window.history.back();
+        }
+    </script>
+</body>
+</html>

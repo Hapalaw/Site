@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nya</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #search-container {
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="search-container">
+    <h2>Homunkulu bāze (Latvija)</h2>
+    <input type="text" id="search" placeholder="Meklēt..">
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Homunkula nosaukums</th>
+            <th>Vecums (dienās)</th>
+			<th>Agresivitāte?</th>
+			<th>Inkubācijas laiks (dienās)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>42</td>
+            <td>"Egor"</td>
+            <td>8</td>
+			<td>Nē</td>
+			<td>10</td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td>"Igor"</td>
+            <td>11</td>
+			<td>Nē</td>
+			<td>15</td>
+        </tr>
+            <td>7</td>
+            <td>"Nyasha"</td>
+            <td>34</td>
+			<td>Nē</td>
+			<td>20</td>
+		</tr>
+		
+		</tr>
+            <td>16</td>
+            <td>"Mudachok"</td>
+            <td>22</td>
+			<td>Jā</td>
+			<td>15</td>
+		</tr>
+		
+		</tr>
+            <td>13</td>
+            <td>"Vlad"</td>
+            <td>32</td>
+			<td>Jā</td>
+			<td>40</td>
+		</tr>
+		
+		</tr>
+            <td>34</td>
+            <td>"XXX"</td>
+            <td>14</td>
+			<td>Jā</td>
+			<td>30</td>
+		</tr>
+		
+		</tr>
+            <td>4</td>
+            <td>"Io"</td>
+            <td>64</td>
+			<td>Nē</td>
+			<td>40</td>
+		</tr>
+		
+		</tr>
+            <td>76</td>
+            <td>"Pikachu"</td>
+            <td>27</td>
+			<td>Jā</td>
+			<td>20</td>
+		</tr>
+    </tbody>
+</table>
+
+<button onclick="goBack()">Atpakaļ!</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+    <div id="video-container">
+	
+		<div id="text-overlay">
+		<h2>Pirmā homunkula parādīšanās:</h2>
+		<p>Pirmais veiksmīgais homunculus eksperiments parādīja, ka ir iespējams izveidot cilvēka un vistas hibrīdu, ievietojot vīrieša sēklas vistas olā un gaidot 10-40 dienas. Ar nelielu iespēju parādīsies homunculus (video zemāk). Kopš tā laika mūsu laboratorija ir iesaistījusies šajos pētījumos.</p>
+        </div>
+		
+		<img src="Homunculus.gif">
+	
+		<div id="text-overlay">
+		<h2>Homunculus incidents:</h2>
+		<p>Otrais homunkula eksperiments bija biedējošs. Homunkuls bija dzīvs, bet uzbruka mūsu zinātnieka Skābei. Homunculus nogalināja vārdnīca.</p>
+        </div>
+        <video id="myVideo" controls>
+            <source src="HumunculusIncidents.mp4" type="video/mp4">
+            Jūsu pārlūkprogramma neatbalsta video tagu.
+        </video>
+		
+		<div id="text-overlay">
+		<p>Neiesakām atkārtot mājās!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("myVideo").addEventListener("click", function() {
+            if (this.paused) {
+                this.play();
+            } else {
+                this.pause();
+            }
+        });
+    </script>
+
+</body>
+</html>
