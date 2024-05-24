@@ -21,10 +21,12 @@
         #search-container {
             margin-bottom: 20px;
         }
-
         video {
             width: 100%;
             max-width: 800px;
+        }
+        #table-container {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -33,122 +35,109 @@
 <div id="search-container">
     <h2>Homunkulu bāze (Latvija)</h2>
     <input type="text" id="search" placeholder="Meklēt..">
+    <select id="table-select" onchange="displayTable()">
+        <option value="default">Izvēlieties tabulu</option>
+        <option value="vielas">vielas</option>
+        <option value="inventars">inventars</option>
+        <option value="both">Abas tabulas</option>
+    </select>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Homunkula nosaukums</th>
-            <th>Vecums (dienās)</th>
-			<th>Agresivitāte?</th>
-			<th>Inkubācijas laiks (dienās)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>42</td>
-            <td>"Egor"</td>
-            <td>8</td>
-			<td>Nē</td>
-			<td>10</td>
-        </tr>
-        <tr>
-            <td>37</td>
-            <td>"Igor"</td>
-            <td>11</td>
-			<td>Nē</td>
-			<td>15</td>
-        </tr>
-            <td>7</td>
-            <td>"Nyasha"</td>
-            <td>34</td>
-			<td>Nē</td>
-			<td>20</td>
-		</tr>
-		
-		</tr>
-            <td>16</td>
-            <td>"Mudachok"</td>
-            <td>22</td>
-			<td>Jā</td>
-			<td>15</td>
-		</tr>
-		
-		</tr>
-            <td>13</td>
-            <td>"Vlad"</td>
-            <td>32</td>
-			<td>Jā</td>
-			<td>40</td>
-		</tr>
-		
-		</tr>
-            <td>34</td>
-            <td>"XXX"</td>
-            <td>14</td>
-			<td>Jā</td>
-			<td>30</td>
-		</tr>
-		
-		</tr>
-            <td>4</td>
-            <td>"Io"</td>
-            <td>64</td>
-			<td>Nē</td>
-			<td>40</td>
-		</tr>
-		
-		</tr>
-            <td>76</td>
-            <td>"Pikachu"</td>
-            <td>27</td>
-			<td>Jā</td>
-			<td>20</td>
-		</tr>
-    </tbody>
-</table>
+<div id="table-container"></div>
 
 <button onclick="goBack()">Atpakaļ!</button>
 
 <script>
+    let table1Data = [];
+    let table2Data = [];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('https://api.jsonbin.io/v3/b/6650dc0dacd3cb34a84d00ce', {
+            headers: {
+                'X-Master-Key': '$2b$10$AkmMPrl5yR5bRm56hdszxuAd1K4txZfbbBCV8yAq7zOohzZ1/XzE6' // Поменяйте на ваш ключ, если нужен
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                table1Data = data.record;
+                console.log('vielas.json loaded:', data);
+            })
+            .catch(error => console.error('Error loading vielas.json:', error));
+
+        fetch('https://api.jsonbin.io/v3/b/6650d8b1ad19ca34f86e8ab9', {
+            headers: {
+                'X-Master-Key': '$2b$10$AkmMPrl5yR5bRm56hdszxuAd1K4txZfbbBCV8yAq7zOohzZ1/XzE6' // Поменяйте на ваш ключ, если нужен
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                table2Data = data.record;
+                console.log('inventars.json loaded:', data);
+            })
+            .catch(error => console.error('Error loading inventars.json:', error));
+    });
+
+    function createTable(data) {
+        if (data.length === 0) {
+            return '<p>No data available</p>';
+        }
+        let table = '<table><thead><tr><th>ID</th><th>Nosaukums</th><th>Apakstips</th><th>Daudzums</th><th>Mērvienības</th><th>Skaits</th><th>Komentāri</th><th>Tips</th></tr></thead><tbody>';
+        data.forEach(row => {
+            table += `<tr><td>${row.id}</td><td>${row.nosaukums}</td><td>${row.apakstips}</td><td>${row.daudzums}</td><td>${row.mervienibas}</td><td>${row.skaits}</td><td>${row.komentari}</td><td>${row.tips}</td></tr>`;
+        });
+        table += '</tbody></table>';
+        return table;
+    }
+
+    function displayTable() {
+        const select = document.getElementById('table-select');
+        const tableContainer = document.getElementById('table-container');
+        tableContainer.innerHTML = '';
+
+        console.log('Selected value:', select.value);
+
+        if (select.value === 'vielas') {
+            tableContainer.innerHTML = createTable(table1Data);
+        } else if (select.value === 'inventars') {
+            tableContainer.innerHTML = createTable(table2Data);
+        } else if (select.value === 'both') {
+            tableContainer.innerHTML = createTable(table1Data) + createTable(table2Data);
+        }
+    }
+
     function goBack() {
         window.history.back();
     }
 </script>
 
-    <div id="video-container">
-	
-		<div id="text-overlay">
-		<h2>Pirmā homunkula parādīšanās:</h2>
-		<p>Pirmais veiksmīgais homunculus eksperiments parādīja, ka ir iespējams izveidot cilvēka un vistas hibrīdu, ievietojot vīrieša sēklas vistas olā un gaidot 10-40 dienas. Ar nelielu iespēju parādīsies homunculus (video zemāk). Kopš tā laika mūsu laboratorija ir iesaistījusies šajos pētījumos.</p>
-        </div>
-		
-		<img src="Homunculus.gif">
-	
-		<div id="text-overlay">
-		<h2>Homunculus incidents:</h2>
-		<p>Otrais homunkula eksperiments bija biedējošs. Homunkuls bija dzīvs, bet uzbruka mūsu zinātnieka Skābei. Homunculus nogalināja vārdnīca.</p>
-        </div>
-        <video id="myVideo" controls>
-            <source src="HumunculusIncidents.mp4" type="video/mp4">
-            Jūsu pārlūkprogramma neatbalsta video tagu.
-        </video>
-		
-		<div id="text-overlay">
-		<p>Neiesakām atkārtot mājās!</p>
-        </div>
+<div id="video-container">
+    <div id="text-overlay">
+        <h2>Pirmā homunkula parādīšanās:</h2>
+        <p>Pirmais veiksmīgais homunculus eksperiments parādīja, ka ir iespējams izveidot cilvēka un vistas hibrīdu, ievietojot vīrieša sēklas vistas olā un gaidot 10-40 dienas. Ar nelielu iespēju parādīsies homunculus (video zemāk). Kopš tā laika mūsu laboratorija ir iesaistījusies šajos pētījumos.</p>
     </div>
+    <img src="Homunculus.gif">
+    <div id="text-overlay">
+        <h2>Homunculus incidents:</h2>
+        <p>Otrais homunkula eksperiments bija biedējošs. Homunkuls bija dzīvs, bet uzbruka mūsu zinātnieka Skābei. Homunculus nogalināja vārdnīca.</p>
+    </div>
+    <video id="myVideo" controls>
+        <source src="HumunculusIncidents.mp4" type="video/mp4">
+        Jūsu pārlūkprogramma neatbalsta video tagu.
+    </video>
+    <div id="text-overlay">
+        <p>Neiesakām atkārtot mājās!</p>
+    </div>
+</div>
 
-    <script>
-        document.getElementById("myVideo").addEventListener("click", function() {
-            if (this.paused) {
-                this.play();
-            } else {
-                this.pause();
-            }
-        });
-    </script>
+<script>
+    document.getElementById("myVideo").addEventListener("click", function() {
+        if (this.paused) {
+            this.play();
+        } else {
+            this.pause();
+        }
+    });
+</script>
 
 </body>
 </html>
